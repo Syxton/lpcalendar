@@ -205,7 +205,8 @@ include('../header.php');
             <input class="cancel" name="cancel" type="submit" value="Cancel" />
     	</form>
     </div>';
-    echo format_popup($content,'Edit Lesson') . get_editor_javascript();
+
+    echo format_popup($content,'Edit Lesson') . get_editor_javascript() . '<iframe style="display: none;" src="../index.php?keepalive=true" />';
 }
 
 function print_range() {

@@ -1729,6 +1729,10 @@ a.monthly_scroll:hover {
     margin: 5% auto;
 }
 
+.dayofweek > a {
+    color: inherit;
+}
+
 .centerform {
     width: 70%;
     margin: 5% auto;

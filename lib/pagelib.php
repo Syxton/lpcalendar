@@ -328,7 +328,7 @@ function get_login_form($loginonly = false, $newuser = true) {
 }
 
 function format_popup($content = "", $title = "", $height = "calc(100vh - 102px)", $padding = "25px") {
-    return '<div style="margin: 25px;padding:' . $padding . ';border:1px solid silver;border-radius: 5px;height:' . $height . ';">
+    return '<div style="margin: 25px;overflow: scroll;padding:' . $padding . ';border:1px solid silver;border-radius: 5px;height:' . $height . ';">
                 <h3>' . $title . '</h3>' . $content . '
             </div>';
 }
@@ -503,16 +503,32 @@ function get_mini_calendar($month, $year, $highlight = false){
         $day = date("j", strtotime("-$dayofweek days", $timestamp));
         $lastmonth = $month == 1 ? 12 : $month - 1;
         $lastyear = $month == 1 ? $year - 1 : $year;
-        $content = get_content($lastyear . sprintf("%02d", $lastmonth) . sprintf("%02d", $day));
+        $lessonid = $lastyear . sprintf("%02d", $lastmonth) . sprintf("%02d", $day);
+        $content = get_content($lessonid);
         $contentclass = empty($content) ? '' : "contentexists";
         $lockedclass = !empty($content) && !empty($content["locked"]) ? "contentlocked" : "";
-        $printout .= "<span class='dayofweek lastmonth day7 $contentclass $lockedclass'>$day</span>";
+        $param   = array(
+            "title" => "View Lesson",
+            "text" => $day,
+            "path" => $CFG->wwwroot . "/pages/quickview.php?action=viewlesson&lessonid=$lessonid",
+            "width" => "500"
+        );
+        $onclick = empty($content) ? $day : make_modal_links($param);
+        $printout .= "<span class='dayofweek lastmonth day7 $contentclass $lockedclass'>$onclick</span>";
         for($i = 1; $i < $dayofweek; $i++) {
             $day = date("j", strtotime("-".($dayofweek - $i)." days", $timestamp));
-            $content = get_content($lastyear . sprintf("%02d", $lastmonth) . sprintf("%02d", $day));
+            $lessonid = $lastyear . sprintf("%02d", $lastmonth) . sprintf("%02d", $day);
+            $content = get_content($lessonid);
             $contentclass = empty($content) ? '' : "contentexists";
             $lockedclass = !empty($content) && !empty($content["locked"]) ? "contentlocked" : "";
-            $printout .= "<span class='dayofweek lastmonth day$i $contentclass $lockedclass'>$day</span>";
+            $param   = array(
+                "title" => "View Lesson",
+                "text" => $day,
+                "path" => $CFG->wwwroot . "/pages/quickview.php?action=viewlesson&lessonid=$lessonid",
+                "width" => "500"
+            );
+            $onclick = empty($content) ? $day : make_modal_links($param);
+            $printout .= "<span class='dayofweek lastmonth day$i $contentclass $lockedclass'>$onclick</span>";
         }
     }
 
@@ -521,10 +537,18 @@ function get_mini_calendar($month, $year, $highlight = false){
         $date = new DateTime("$year-$month-$i 00:00:00", new DateTimeZone($CFG->timezone));
         $timestamp = $date->getTimestamp();
         $dayofweek = date("N", $timestamp);
-        $content = get_content($year . sprintf("%02d", $month) . sprintf("%02d", $i));
+        $lessonid = $year . sprintf("%02d", $month) . sprintf("%02d", $i);
+        $content = get_content($lessonid);
         $contentclass = empty($content) ? '' : "contentexists";
         $lockedclass = !empty($content) && !empty($content["locked"]) ? "contentlocked" : "";
-        $printout .= "<span class='dayofweek day$dayofweek $contentclass $lockedclass'>$i</span>";
+        $param   = array(
+            "title" => "View Lesson",
+            "text" => $i,
+            "path" => $CFG->wwwroot . "/pages/quickview.php?action=viewlesson&lessonid=$lessonid",
+            "width" => "500"
+        );
+        $onclick = empty($content) ? $i : make_modal_links($param);
+        $printout .= "<span class='dayofweek day$dayofweek $contentclass $lockedclass'>$onclick</span>";
     }
 
     if ($dayofweek !== 6) { // Fill out days for next month.
@@ -532,10 +556,18 @@ function get_mini_calendar($month, $year, $highlight = false){
         for($i = 1; $i < $dayofweek; $i++) {
             $nextmonth = $month == 12 ? 1 : $month + 1;
             $nextyear = $month == 12 ? $year + 1 : $year;
-            $content = get_content($nextyear . sprintf("%02d", $nextmonth) . sprintf("%02d", $i));
+            $lessonid = $nextyear . sprintf("%02d", $nextmonth) . sprintf("%02d", $i);
+            $content = get_content($lessonid);
             $contentclass = empty($content) ? '' : "contentexists";
             $lockedclass = !empty($content) && !empty($content["locked"]) ? "contentlocked" : "";
-            $printout .= "<span class='dayofweek lastmonth day$i $contentclass $lockedclass'>$i</span>";
+            $param   = array(
+                "title" => "View Lesson",
+                "text" => $i,
+                "path" => $CFG->wwwroot . "/pages/quickview.php?action=viewlesson&lessonid=$lessonid",
+                "width" => "500"
+            );
+            $onclick = empty($content) ? $i : make_modal_links($param);
+            $printout .= "<span class='dayofweek lastmonth day$i $contentclass $lockedclass'>$onclick</span>";
         }
     }
 

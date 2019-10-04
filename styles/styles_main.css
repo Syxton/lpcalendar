@@ -1601,6 +1601,11 @@ box-shadow: none;
     background: whitesmoke !important;
 }
 
+.dayofweek.contentexists:hover {
+    background: gainsboro !important;
+    cursor: pointer;
+}
+
 .tools {
     width: 0;
     height: 0;

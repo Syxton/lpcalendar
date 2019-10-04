@@ -177,7 +177,7 @@ function print_logout_button($fname, $lname, $pageid = false) {
     $param   = array(
         "title" => "Edit Profile",
         "text" => "$fname $lname",
-        "path" => $CFG->wwwroot . "/pages/forms.php?action=change_profile",
+        "path" => $CFG->wwwroot . "/pages/forms.php?action=change_profile_form",
         "validate" => "true",
         "width" => "500",
         "image" => $CFG->wwwroot . "/images/16x16/profile_16x16.png",
@@ -316,7 +316,7 @@ function get_login_form($loginonly = false, $newuser = true) {
     )) . '<br />' : '';
     $content .= make_modal_links(array(
         "title" => "Forgot password?",
-        "path" => $CFG->wwwroot . "/pages/forms.php?action=forgot_password",
+        "path" => $CFG->wwwroot . "/pages/forms.php?action=forgot_password_form",
         "width" => "500"
     )) . '
     </span>
@@ -327,8 +327,8 @@ function get_login_form($loginonly = false, $newuser = true) {
     return $returnme;
 }
 
-function format_popup($content = "", $title = "", $height = "calc(100vh - 102px)", $padding = "25px") {
-    return '<div style="margin: 25px;overflow: scroll;padding:' . $padding . ';border:1px solid silver;border-radius: 5px;height:' . $height . ';">
+function format_popup($content = "", $title = "", $height = "calc(100vh - 102px)", $padding = "25px", $extrastyles = "") {
+    return '<div style="margin: 25px;padding:' . $padding . ';border:1px solid silver;border-radius: 5px;height:' . $height . ';'.$extrastyles.'">
                 <h3>' . $title . '</h3>' . $content . '
             </div>';
 }
@@ -697,7 +697,9 @@ function get_controls($id) {
 
     return '<form class="tools">
                 <div class="dropdown">
-                  <div class="dropbtn">Modify</div>
+                  <div class="dropbtn">
+                    <img src="'.$CFG->wwwroot.'/images/16x16/gear-4_16x16.png" style="width: 10px;" />
+                  </div>
                   <div class="dropdown-content">
                     '.$editlink.'
                     '.$deletelink.'
@@ -774,7 +776,7 @@ function print_view_selector() {
 
     $onchange = "window.location.href = '".$CFG->wwwroot."/index.php?offset=".$offset."&view=' + this.value;";
     return '<div style="display: inline-block;">View:&nbsp;' .
-                make_select_from_array("view", $actions, "val", "txt", $selected, $onchange, true) .
+                make_select_from_array("view", $actions, "val", "txt", $selected, $onchange, true, 1, 'width:calc(100vw / 3);') .
             '</div>';
 }
 
@@ -789,7 +791,7 @@ function print_actions_selector() {
 
     $onchange = "window.location.href = '".$CFG->wwwroot."/pages/forms.php?offset=".$offset."&action=' + this.value;";
     return '<div style="display: inline-block;">Actions:&nbsp;' .
-                make_select_from_array("actions", $actions, "val", "txt", $selected, $onchange, true) .
+                make_select_from_array("actions", $actions, "val", "txt", $selected, $onchange, true, 1, 'width:calc(100vw / 3);') .
             '</div>';
 }
 

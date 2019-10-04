@@ -1611,11 +1611,11 @@ box-shadow: none;
 
 /* Dropdown Button */
 .dropbtn {
-  background-color: #4CAF50;
   color: white;
   padding: 2px;
   font-size: 10px;
   border: none;
+  width: 10px;
 }
 
 /* The container <div> - needed to position the dropdown content */
@@ -1656,7 +1656,7 @@ box-shadow: none;
 .dropdown:hover .dropdown-content {display: block;}
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown:hover .dropbtn {background-color: #3e8e41;}
+.dropdown:hover .dropbtn {background-color: lightgray;}
 
 .ui-draggable-dragging {
     z-index: 9999999 !important;
@@ -1768,7 +1768,9 @@ a.monthly_scroll:hover {
     border-spacing: 10px;
 }
 
-@media only screen and (max-device-height: 700px) {
+@media only screen and (max-height: 500px) {
+    .minical, .cal_arrows { zoom: 1 !important; }
+
     .minical {
         padding: 5px;
         margin: 10px 0px;
@@ -1796,5 +1798,39 @@ a.monthly_scroll:hover {
     .bigcal .dayofweek.lastmonth {
         outline: 2px solid gainsboro;
         color: gainsboro;
+    }
+}
+@media only screen and (max-height: 850px) {
+    .minical, .cal_arrows { zoom: .9; }
+}
+@media only screen and (max-height: 800px) {
+    .minical, .cal_arrows { zoom: .85; }
+    .numbers { right: -6px !important; top: -22px !important; width: 15px !important; zoom: .85;}
+}
+@media only screen and (max-height: 750px) {
+    .minical, .cal_arrows { zoom: .8; }
+    .bigcal .dayofweek.weeks5 {
+        height: calc((100vh - (57px * 5)) / 5);
+        margin: .4% .5%;
+    }
+
+    .bigcal .dayofweek.weeks6 {
+        height: calc((100vh - (50px * 6)) / 6);
+        margin: .4% .5%;
+    }
+}
+@media only screen and (max-height: 650px) {
+    .minical, .cal_arrows { zoom: .7; }
+}
+@media only screen and (max-width: 550px) {
+    .minical, .cal_arrows { zoom: .6; }
+    .bigcal .dayofweek.weeks5 {
+        height: calc((100vh - (40px * 5)) / 5);
+        margin: .4% .5%;
+    }
+
+    .bigcal .dayofweek.weeks6 {
+        height: calc((100vh - (34px * 6)) / 6);
+        margin: .4% .5%;
     }
 }

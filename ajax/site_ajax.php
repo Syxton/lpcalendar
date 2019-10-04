@@ -17,7 +17,7 @@ global $CFG, $USER, $MYVARS;
 	$username = dbescape($MYVARS->GET["username"]);
 	$password = md5($MYVARS->GET["password"]);
 	if($row = authenticate($username, $password)) {
-		if($row["alternate"] == $password){ $reroute = '<input type="hidden" id="reroute" value="/pages/forms.php?action=reset_password&amp;userid=' . $row["userid"] . '&amp;alternate=' . $password . '" />';}
+		if($row["alternate"] == $password){ $reroute = '<input type="hidden" id="reroute" value="/pages/forms.php?action=reset_password_form&amp;userid=' . $row["userid"] . '&amp;alternate=' . $password . '" />';}
         echo 'true**' . $reroute;
 	}else{ echo "false**" . get_error_message("no_login"); }
 }
@@ -294,7 +294,13 @@ function save_add_edit_lesson() {
             }
 
             if (execute_db_sql($SQL)) {
-                echo back_to_calendar($MYVARS->GET["lessonid"]);
+                if (!empty($MYVARS->GET["submit_continue"])) {
+                    $nextday = DateTime::createFromFormat('Ymd', $MYVARS->GET["lessonid"]);
+                    $nextday = date('Ymd', strtotime('+1 Weekday', $nextday->getTimestamp()));
+                    header("Location: $CFG->wwwroot/pages/forms.php?action=add_edit_lesson&lessonid=$nextday");
+                } else {
+                    echo back_to_calendar($MYVARS->GET["lessonid"]);
+                }
             } else {
                 echo get_page_error_message("generic_db_error");
                 echo back_to_calendar($MYVARS->GET["lessonid"], '5');

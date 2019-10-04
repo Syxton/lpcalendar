@@ -58,7 +58,7 @@ global $MYVARS, $CFG;
     echo format_popup($content,$CFG->sitename.' Signup',"500px");
 }
 
-function reset_password(){
+function reset_password_form(){
 global $MYVARS, $CFG;
 	$userid = $MYVARS->GET["userid"];
 	$alternate = $MYVARS->GET["alternate"];
@@ -99,7 +99,7 @@ global $MYVARS, $CFG;
 	}
 }
 
-function change_profile(){
+function change_profile_form(){
 global $MYVARS, $CFG, $USER, $PAGE;
 	if(!empty($USER->userid)){
 	   $userid = $USER->userid;
@@ -142,7 +142,7 @@ global $MYVARS, $CFG, $USER, $PAGE;
 	}
 }
 
-function forgot_password(){
+function forgot_password_form(){
 global $MYVARS, $CFG;
 
 	if(!isset($VALIDATELIB)){ include_once($CFG->dirroot . '/lib/validatelib.php'); }
@@ -176,6 +176,31 @@ include('../header.php');
     $content = '';
     $lessonid = empty($MYVARS->GET["lessonid"]) ? false : $MYVARS->GET["lessonid"];
     if ($lessonid) {
+        $prevday = DateTime::createFromFormat('Ymd', $lessonid);
+        $prevday = date('Ymd', strtotime('-1 Weekday', $prevday->getTimestamp()));
+        $param1   = array(
+            "title" => "View Lesson",
+            "text" => "previous",
+            "path" => $CFG->wwwroot . "/pages/quickview.php?action=viewlesson&lessonid=$prevday",
+            "width" => "500"
+        );
+        $nextday = DateTime::createFromFormat('Ymd', $lessonid);
+        $nextday = date('Ymd', strtotime('+1 Weekday', $nextday->getTimestamp()));
+        $onclick1 = make_modal_links($param1);
+        $param2   = array(
+            "title" => "View Lesson",
+            "text" => "next",
+            "path" => $CFG->wwwroot . "/pages/quickview.php?action=viewlesson&lessonid=$nextday",
+            "width" => "500"
+        );
+        $onclick2 = make_modal_links($param2);
+
+        $thisday = DateTime::createFromFormat('Ymd', $lessonid);
+        $content .= '<h2 style="text-align:center">
+                        <span style="float:left;font-size: 12px">'.$onclick1.'</span>
+                        '.$thisday->format("l jS \of F Y").
+                        '<span style="float:right;font-size: 12px">'.$onclick2.'</span>
+                    </h2>';
         $lesson = get_db_row("SELECT * FROM lessons WHERE timestamp='$lessonid' AND userid='$USER->userid' ");
         $lesson_text = $lesson["content"];
         $locked_yes = !empty($lesson["locked"]) ? "selected" : "";
@@ -184,6 +209,9 @@ include('../header.php');
         $locked_no = $locked_yes = $lesson_text = "";
     }
 
+    $nextday = DateTime::createFromFormat('Ymd', $lessonid);
+    $nextday = date('l \t\h\e jS', strtotime('+1 Weekday', $nextday->getTimestamp()));
+
     $content .= '
     <div class="formDiv" id="add_edit_lesson_div">
     	<form id="add_edit_lesson_form" action="../ajax/site_ajax.php" method="post">
@@ -191,22 +219,23 @@ include('../header.php');
             <input type="hidden" id="lessonid" name="lessonid" value="'.$lessonid.'" />
     		<fieldset class="formContainer">
                 <div class="rowContainer">
-                    <label class="rowTitle" for="siteviewable">Locked Date</label>
-                    <select name="locked" id="locked">
+                    <label for="siteviewable">Locked Date</label>
+                    <select name="locked" id="locked" style="float:none;">
                         <option value="0" ' . $locked_no . '>No</option>
                         <option value="1" ' . $locked_yes . '>Yes</option>
                     </select>
-                </div><br /><br />
+                </div>
     			<div class="rowContainer">
                     '.get_editor_box($lesson_text, "lessoneditor", "calc(100vh - 400px)", "100%").'
                 </div>
             </fieldset>
-            <input class="submit" name="submit" type="submit" value="Save Lesson" />
+            <input class="submit" name="submit" type="submit" value="Save & Return" />
+            <input class="submit" name="submit_continue" type="submit" value="Save & Go to '.$nextday.'" />
             <input class="cancel" name="cancel" type="submit" value="Cancel" />
     	</form>
-    </div>';
+    </div><div style="clear:both;"></div>';
 
-    echo format_popup($content,'Edit Lesson') . get_editor_javascript() . '<iframe style="display: none;" src="../index.php?keepalive=true" />';
+    echo format_popup($content,'Edit Lesson','calc(100vh - 62px)','5px') . get_editor_javascript() . '<iframe style="display: none;" src="../index.php?keepalive=true" />';
 }
 
 function print_range() {

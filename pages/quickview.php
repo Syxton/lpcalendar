@@ -26,13 +26,16 @@ include('../header.php');
     $content = '';
     $lessonid = empty($MYVARS->GET["lessonid"]) ? false : $MYVARS->GET["lessonid"];
     if ($lessonid) {
-        $lesson = get_db_row("SELECT * FROM lessons WHERE timestamp='$lessonid' AND userid='$USER->userid' ");
-        $content = $lesson["content"];
-    } else {
-        $content = "No lesson found";
+        $thisday = DateTime::createFromFormat('Ymd', $lessonid);
+        $content .= '<h2>'.$thisday->format("l jS \of F Y").'</h2>';
+        if ($lesson = get_db_row("SELECT * FROM lessons WHERE timestamp='$lessonid' AND userid='$USER->userid' ")) {
+            $content .= $lesson["content"];
+            echo format_popup($content,'Quick View', 'calc(50vh - 10px)', '10px', 'overflow-y: scroll;');
+            return;
+        }
     }
 
-    echo format_popup($content,'Quick View', 'calc(50vh - 10px)');
-
+    $content .= "No lesson found";
+    echo format_popup($content,'Quick View', 'calc(50vh - 10px)', '10px', 'overflow-y: scroll;');
 }
 ?>

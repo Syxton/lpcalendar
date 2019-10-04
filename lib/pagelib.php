@@ -195,12 +195,17 @@ function print_logout_button($fname, $lname, $pageid = false) {
 
     $logout = '<a title="Log Out" href="javascript: void(0)" onclick="ajaxapi(\'/ajax/site_ajax.php\',\'get_login_box\',\'&amp;logout=1\',function() { clearInterval(myInterval); location.reload(); });">(Log Out)</a>';
     return '<div id="login_box" class="login_box logout" style="text-align:right">
+                <span style="display:inline-block;width: 45%;text-align: left;">
                 ' . print_view_selector() . '
                 ' . print_actions_selector() . '
+                </span>
+                <span style="display:inline-block;width: 50%;">
                 ' . $logoutas . '
                 <span style="display:inline-block;line-height: 18px;">
                     ' . $profile . ' ' . $logout . '
-                </span>' . '</div>';
+                </span>' . '
+                </span>
+                </div>';
 }
 
 function make_select($name, $values, $valuename, $displayname, $selected = false, $onchange = "", $leadingblank = false, $size = 1, $style = "", $leadingblanktitle = "", $excludevalue = false) {
@@ -727,8 +732,8 @@ function print_view_selector() {
     $actions[] = array("val" => "printrange", "txt" => "Agenda Range");
 
     $onchange = "window.location.href = '".$CFG->wwwroot."/index.php?offset=".$offset."&view=' + this.value;";
-    return '<div style="display: inline-block;">View:&nbsp;' .
-                make_select_from_array("view", $actions, "val", "txt", $selected, $onchange, true, 1, 'width:calc(100vw / 3);') .
+    return '<div style="text-align: left;display: inline-block;width: 40%;">View:&nbsp;' .
+                make_select_from_array("view", $actions, "val", "txt", $selected, $onchange, true, "1", "width:50%") .
             '</div>';
 }
 
@@ -742,8 +747,8 @@ function print_actions_selector() {
     $actions[] = array("val" => "delete_all_form", "txt" => "Delete All");
 
     $onchange = "window.location.href = '".$CFG->wwwroot."/pages/forms.php?offset=".$offset."&action=' + this.value;";
-    return '<div style="display: inline-block;">Actions:&nbsp;' .
-                make_select_from_array("actions", $actions, "val", "txt", $selected, $onchange, true, 1, 'width:calc(100vw / 3);') .
+    return '<div style="text-align: left;display: inline-block;width: 40%;">Actions:&nbsp;' .
+                make_select_from_array("actions", $actions, "val", "txt", $selected, $onchange, true, "1", "width:50%") .
             '</div>';
 }
 

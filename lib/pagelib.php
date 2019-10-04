@@ -602,9 +602,11 @@ function make_calendar_day($lessonid, $weeksinmonth, $dayofweek, $daynum, $extra
     $controls = $controls ? get_controls($lessonid) : "";
 
     if (!empty($controls)) {
+        $text = empty($content) ? "" : $content["content"];
         $lessoncontent = '<span class="numbers">' . $daynum . '</span>' .
                             '<div class="lessoncontent">' . $text . '</div>';
     } else {
+        $text = empty($content) ? "" : $content["content"];
         $param   = array(
             "title" => "View Lesson",
             "text" => $daynum,
@@ -614,7 +616,7 @@ function make_calendar_day($lessonid, $weeksinmonth, $dayofweek, $daynum, $extra
         );
         $lessoncontent = empty($content) ? $daynum : make_modal_links($param);
     }
-    $text = empty($content) ? "" : $content["content"];
+
     $lockedclass = !empty($content) && !empty($content["locked"]) ? "contentlocked" : "";
     $contentclass = empty($text) ? '' : "contentexists";
     $todayclass = date("Ymd", get_timestamp()) == $lessonid ? "today" : "";

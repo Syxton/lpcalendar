@@ -1540,7 +1540,6 @@ box-shadow: none;
     outline: 2px solid silver;
     min-height: 40px;
     padding-top: 18px;
-    background: white;
 }
 
 .bigcal .dayofweek.weeks5 {
@@ -1598,7 +1597,7 @@ box-shadow: none;
 }
 
 .contentexists {
-    background: whitesmoke !important;
+    background: whitesmoke;
 }
 
 .dayofweek.contentexists:hover {
@@ -1771,6 +1770,14 @@ a.monthly_scroll:hover {
 .printable_calendar {
     display: table !important;
     border-spacing: 10px;
+}
+
+.bigcal .today {
+    outline: 4px solid orange !important;
+}
+
+.minical .today {
+    background: orange;
 }
 
 @media only screen and (max-height: 500px) {

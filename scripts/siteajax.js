@@ -100,8 +100,10 @@ function rtrim(stringToTrim){ return stringToTrim.replace(/\s+$/,""); }
 function close_modal(){
     if(typeof self.parent.$ != "undefined"){
         self.parent.$.colorbox.close();
+        $('#colorbox, #cboxOverlay').remove();
     }else if(typeof $ != "undefined"){
         $.colorbox.close();
+        $('#colorbox, #cboxOverlay').remove();
     }
 }
 
@@ -112,7 +114,6 @@ function resize_modal(container){
         $("#colorbox").resize();
     }
 }
-
 
 function refresh_page(){ window.location.reload( true ); }
 

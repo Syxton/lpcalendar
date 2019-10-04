@@ -1544,12 +1544,12 @@ box-shadow: none;
 }
 
 .bigcal .dayofweek.weeks5 {
-    height: calc((100vh - (70px * 5)) / 5);
+    height: calc((100vh - (76px * 5)) / 5);
     margin: .4% .5%;
 }
 
 .bigcal .dayofweek.weeks6 {
-    height: calc((100vh - (60px * 6)) / 6);
+    height: calc((100vh - (66px * 6)) / 6);
     margin: .4% .5%;
 }
 

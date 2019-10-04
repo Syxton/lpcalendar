@@ -511,7 +511,8 @@ function get_mini_calendar($month, $year, $highlight = false){
             "title" => "View Lesson",
             "text" => $day,
             "path" => $CFG->wwwroot . "/pages/quickview.php?action=viewlesson&lessonid=$lessonid",
-            "width" => "500"
+            "width" => "500",
+            "styles" => "display: block"
         );
         $onclick = empty($content) ? $day : make_modal_links($param);
         $printout .= "<span class='dayofweek lastmonth day7 $contentclass $lockedclass'>$onclick</span>";
@@ -525,7 +526,8 @@ function get_mini_calendar($month, $year, $highlight = false){
                 "title" => "View Lesson",
                 "text" => $day,
                 "path" => $CFG->wwwroot . "/pages/quickview.php?action=viewlesson&lessonid=$lessonid",
-                "width" => "500"
+                "width" => "500",
+                "styles" => "display: block"
             );
             $onclick = empty($content) ? $day : make_modal_links($param);
             $printout .= "<span class='dayofweek lastmonth day$i $contentclass $lockedclass'>$onclick</span>";
@@ -545,7 +547,8 @@ function get_mini_calendar($month, $year, $highlight = false){
             "title" => "View Lesson",
             "text" => $i,
             "path" => $CFG->wwwroot . "/pages/quickview.php?action=viewlesson&lessonid=$lessonid",
-            "width" => "500"
+            "width" => "500",
+            "styles" => "display: block"
         );
         $onclick = empty($content) ? $i : make_modal_links($param);
         $printout .= "<span class='dayofweek day$dayofweek $contentclass $lockedclass'>$onclick</span>";
@@ -564,7 +567,8 @@ function get_mini_calendar($month, $year, $highlight = false){
                 "title" => "View Lesson",
                 "text" => $i,
                 "path" => $CFG->wwwroot . "/pages/quickview.php?action=viewlesson&lessonid=$lessonid",
-                "width" => "500"
+                "width" => "500",
+                "styles" => "display: block"
             );
             $onclick = empty($content) ? $i : make_modal_links($param);
             $printout .= "<span class='dayofweek lastmonth day$i $contentclass $lockedclass'>$onclick</span>";

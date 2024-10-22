@@ -14,8 +14,8 @@ $CFG->sitefooter = '';
 //Database connection variables
 $CFG->dbtype    = 'mysqli'; // Required: mysql or mysqli.
 $CFG->dbhost    = 'localhost';  // Required: normally localhost.
-$CFG->dbname    = 'lpcalendar'; // Required: name of db table.
-$CFG->dbuser    = '';  // Required: db username w/ permissions on above table.
+$CFG->dbname    = 'lpcalendar'; // Required: name of db.
+$CFG->dbuser    = 'root';  // Required: db username w/ permissions on above table.
 $CFG->dbpass    = '';  // Required: db password for above user.
 
 //SMTP server
@@ -26,7 +26,7 @@ $CFG->smtpuser	= '';
 $CFG->smtppass	= '';
 
 //Directory variables
-$CFG->directory = 'personal/lpcalendar'; // If root directory, leave empty.  if in folder make 'foldername'
+$CFG->directory = ''; // If root directory, leave empty.  if in folder make 'foldername'
 $CFG->wwwroot   = '//'.$_SERVER['SERVER_NAME'];
 $CFG->wwwroot   = $CFG->directory ? $CFG->wwwroot.'/'.$CFG->directory : $CFG->wwwroot;
 $CFG->docroot   = dirname(__FILE__);

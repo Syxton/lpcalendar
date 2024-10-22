@@ -6,7 +6,7 @@
  * Date: 6/07/2016
  * Revision: 1.0.2
  ***************************************************************************/
-error_reporting(E_ERROR | E_PARSE);
+error_reporting(E_ALL);
 header('Cache-Control: no-cache, no-store, must-revalidate'); // HTTP 1.1.
 header('Pragma: no-cache'); // HTTP 1.0.
 header('Expires: 0'); // Proxies.
